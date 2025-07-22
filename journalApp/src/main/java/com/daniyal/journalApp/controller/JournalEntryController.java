@@ -19,9 +19,15 @@ public class JournalEntryController {
         return new ArrayList(journalEntries.values());
     }
 
+    @GetMapping("/id/{myId}")
+    public JournalEntry getJournalEntryById(@PathVariable long myId)
+    {
+        return journalEntries.get(myId);
+    }
     @PostMapping
-    public void createEntry(@RequestParam JournalEntry entry)
+    public boolean createEntry(@RequestBody JournalEntry entry)
     {
         journalEntries.put(entry.getId(),entry);
+        return true;
     }
 }
