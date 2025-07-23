@@ -5,14 +5,11 @@ import com.daniyal.journalApp.service.JournalEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@RequestMapping("/_journal")
-public class JournalEntryControllerV2 {
+@RequestMapping("/journal")
+public class JournalEntryController {
 
     @Autowired
     private JournalEntryService journalEntryService;
