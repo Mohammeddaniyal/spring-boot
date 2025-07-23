@@ -1,6 +1,8 @@
 package com.daniyal.journalApp.controller;
 
 import com.daniyal.journalApp.entity.JournalEntry;
+import com.daniyal.journalApp.service.JournalEntryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,36 +12,37 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/_journal")
-public class JournalEntryController {
-    private Map<String, JournalEntry> journalEntries=new HashMap<>();
+public class JournalEntryControllerV2 {
 
+    @Autowired
+    private JournalEntryService journalEntryService;
     @GetMapping
     public List<JournalEntry> getAll()
     {
-        return new ArrayList(journalEntries.values());
+     return null;
     }
 
     @GetMapping("/id/{myId}")
     public JournalEntry getJournalEntryById(@PathVariable String myId)
     {
-        return journalEntries.get(myId);
+        return null;
     }
     @PostMapping
     public boolean createEntry(@RequestBody JournalEntry entry)
     {
-        journalEntries.put(entry.getId(),entry);
+        journalEntryService.saveEntry(entry);
         return true;
     }
 
     @DeleteMapping("/id/{id}")
     public JournalEntry removeJournalEntryById(@PathVariable String id)
     {
-        return journalEntries.remove(id);
+        return null;
     }
 
     @PutMapping("/id/{id}")
     public JournalEntry updateJournalById(@PathVariable String id, @RequestBody JournalEntry journalEntry)
     {
-        return journalEntries.put(id,journalEntry);
+        return null;
     }
 }
