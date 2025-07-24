@@ -48,22 +48,23 @@ public class JournalEntryController {
     }
 
     @DeleteMapping("/id/{id}")
-    public ResponseEntity deleteJournalEntryById(@PathVariable ObjectId id)
+    public ResponseEntity<?> deleteJournalEntryById(@PathVariable ObjectId id)
     {
         journalEntryService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/id/{id}")
-    public JournalEntry updateJournalById(@PathVariable ObjectId id, @RequestBody JournalEntry newEntry)
+    public ResponseEntity<JournalEntry> updateJournalById(@PathVariable ObjectId id, @RequestBody JournalEntry newEntry)
     {
         JournalEntry oldEntry= journalEntryService.findById(id).orElse(null);
         if(oldEntry!=null)
         {
          oldEntry.setTitle(newEntry.getTitle()!=null && !newEntry.getTitle().equals("") ? newEntry.getTitle() : oldEntry.getTitle());
          oldEntry.setContent(newEntry.getContent()!=null && !newEntry.getContent().equals("") ? newEntry.getContent() : oldEntry.getContent());
+         journalEntryService.saveEntry(oldEntry);
+         return new ResponseEntity<>(oldEntry,HttpStatus.OK);
         }
-        journalEntryService.saveEntry(oldEntry);
-        return oldEntry;
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
