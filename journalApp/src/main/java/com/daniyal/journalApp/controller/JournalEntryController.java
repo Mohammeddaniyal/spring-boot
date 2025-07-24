@@ -68,17 +68,20 @@ public class JournalEntryController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/id/{id}")
-    public ResponseEntity<JournalEntry> updateJournalById(@PathVariable ObjectId id, @RequestBody JournalEntry newEntry)
-    {
-//        JournalEntry oldEntry= journalEntryService.findById(id).orElse(null);
-//        if(oldEntry!=null)
-//        {
-//         oldEntry.setTitle(newEntry.getTitle()!=null && !newEntry.getTitle().equals("") ? newEntry.getTitle() : oldEntry.getTitle());
-//         oldEntry.setContent(newEntry.getContent()!=null && !newEntry.getContent().equals("") ? newEntry.getContent() : oldEntry.getContent());
-//         journalEntryService.saveEntry(oldEntry);
-//         return new ResponseEntity<>(oldEntry,HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @PutMapping("/id/username/{id}")
+    public ResponseEntity<JournalEntry> updateJournalById(
+            @PathVariable ObjectId id,
+            @RequestBody JournalEntry newEntry,
+            @PathVariable String username
+    ){
+        JournalEntry oldEntry= journalEntryService.findById(id).orElse(null);
+        if(oldEntry!=null)
+        {
+         oldEntry.setTitle(newEntry.getTitle()!=null && !newEntry.getTitle().equals("") ? newEntry.getTitle() : oldEntry.getTitle());
+         oldEntry.setContent(newEntry.getContent()!=null && !newEntry.getContent().equals("") ? newEntry.getContent() : oldEntry.getContent());
+         journalEntryService.saveEntry(oldEntry);
+         return new ResponseEntity<>(oldEntry,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
