@@ -1,7 +1,7 @@
 package com.daniyal.journalApp.service;
 
-import com.daniyal.journalApp.entity.JournalEntry;
-import com.daniyal.journalApp.repository.JournalEntryRepository;
+import com.daniyal.journalApp.entity.User;
+import com.daniyal.journalApp.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,22 +13,22 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    private JournalEntryRepository journalEntryRepository;
-    public void saveEntry(JournalEntry journalEntry)
+    private UserRepository UserRepository;
+    public void saveEntry(User User)
     {
-        journalEntryRepository.save(journalEntry);
+        UserRepository.save(User);
     }
-    public List<JournalEntry> getAll()
+    public List<User> getAll()
     {
-        return journalEntryRepository.findAll();
+        return UserRepository.findAll();
     }
-    public Optional<JournalEntry> findById(ObjectId id)
+    public Optional<User> findById(ObjectId id)
     {
-        return journalEntryRepository.findById(id);
+        return UserRepository.findById(id);
     }
     public void deleteById(ObjectId id)
     {
-        journalEntryRepository.deleteById(id);
+        UserRepository.deleteById(id);
     }
 }
 
