@@ -33,7 +33,7 @@ public class JournalEntryController {
         {
             return new ResponseEntity<>(journalEntry.get(), HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @PostMapping
     public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry entry)
