@@ -2,12 +2,16 @@ package com.daniyal.journalApp.controller;
 
 import com.daniyal.journalApp.entity.JournalEntry;
 import com.daniyal.journalApp.service.JournalEntryService;
+import org.apache.coyote.Response;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/journal")
@@ -22,16 +26,25 @@ public class JournalEntryController {
     }
 
     @GetMapping("/id/{myId}")
-    public JournalEntry getJournalEntryById(@PathVariable ObjectId myId)
+    public ResponseEntity<JournalEntry> getJournalEntryById(@PathVariable ObjectId myId)
     {
-        return journalEntryService.findById(myId).orElse(null);
+        Optional<JournalEntry> journalEntry = journalEntryService.findById(myId);
+        if(journalEntry.isPresent())
+        {
+            return new ResponseEntity<>(journalEntry.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND)
     }
     @PostMapping
-    public boolean createEntry(@RequestBody JournalEntry entry)
+    public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry entry)
     {
-        entry.setDate(LocalDateTime.now());
-        journalEntryService.saveEntry(entry);
-        return true;
+        try {
+            entry.setDate(LocalDateTime.now());
+            journalEntryService.saveEntry(entry);
+            return new ResponseEntity<>(entry,HttpStatus.CREATED);
+        }catch(Exception exception) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/id/{id}")
