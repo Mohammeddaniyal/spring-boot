@@ -1,7 +1,9 @@
 package com.daniyal.journalApp.controller;
 
 import com.daniyal.journalApp.entity.JournalEntry;
+import com.daniyal.journalApp.entity.User;
 import com.daniyal.journalApp.service.JournalEntryService;
+import com.daniyal.journalApp.service.UserService;
 import org.apache.coyote.Response;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,24 @@ import java.util.Optional;
 public class JournalEntryController {
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private JournalEntryService journalEntryService;
-    @GetMapping
-    public List<JournalEntry> getAll()
+
+    @GetMapping("{username}")
+    public ResponseEntity<?> getAllJournalEntriesOfUser(@PathVariable String username)
     {
-     return journalEntryService.getAll();
+        User user=userService.findByUsername(username);
+        if(user!=null)
+        {
+            List<JournalEntry> all=user.getJournalEntryList();
+            if(all!=null & !all.isEmpty())
+            {
+                return new ResponseEntity<>(all,HttpStatus.OK);
+            }
+        }
+     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/id/{myId}")
