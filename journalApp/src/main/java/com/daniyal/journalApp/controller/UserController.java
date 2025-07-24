@@ -26,10 +26,10 @@ public class UserController {
     {
         return userService.getAll();
     }
-    @PutMapping 
-    public ResponseEntity<?> updateUser(@RequestBody User user)
+    @PutMapping("/username/{username}")
+    public ResponseEntity<?> updateUser(@RequestBody User user,@PathVariable String username)
     {
-        User userInDb=userService.findByUsername(user.getUsername());
+        User userInDb=userService.findByUsername(user.getUsername(username));
         if(userInDb!=null) {
             userInDb.setUsername(user.getUsername());
             userInDb.setPassword(user.getPassword());
