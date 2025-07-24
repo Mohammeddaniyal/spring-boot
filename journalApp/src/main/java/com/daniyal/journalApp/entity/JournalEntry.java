@@ -2,6 +2,7 @@ package com.daniyal.journalApp.entity;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 
 @Document(collection = "journal_entries")
 @Data
+@NoArgsConstructor // imp
 public class JournalEntry {
     @Id // used to map as primary key
     private ObjectId id;
