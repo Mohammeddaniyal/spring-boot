@@ -21,11 +21,8 @@ public class UserController {
     {
         userService.saveEntry(user);
     }
-    @GetMapping
-    public List<User> getAllUsers()
-    {
-        return userService.getAll();
-    }
+    
+
     @PutMapping("/username/{username}")
     public ResponseEntity<?> updateUser(@RequestBody User user,@PathVariable String username)
     {
