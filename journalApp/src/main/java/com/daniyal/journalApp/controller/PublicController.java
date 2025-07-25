@@ -12,7 +12,7 @@ public class PublicController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping("/create-user")
     public void createUser(@RequestBody User user)
     {
         userService.saveEntry(user);
