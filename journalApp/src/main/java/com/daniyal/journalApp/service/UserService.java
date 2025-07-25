@@ -26,15 +26,9 @@ public class UserService {
         user.setRoles(Arrays.asList("User"));
         userRepository.save(user);
     }
- 
-    public Optional<User> findById(ObjectId id)
-    {
-        return userRepository.findById(id);
-    }
-    public void deleteById(ObjectId id)
-    {
-        userRepository.deleteById(id);
-    }
+
+    
+
     public User findByUsername(String username)
     {
         return userRepository.findByUsername(username);
