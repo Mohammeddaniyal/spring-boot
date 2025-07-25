@@ -23,15 +23,14 @@ public class UserController {
     @PutMapping
     public ResponseEntity<?> updateUser(@RequestBody User user)
     {
+    // to understand this two lines, lec 20 43:00 around
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
+
         User userInDb=userService.findByUsername(username);
-        if(userInDb!=null) {
-            userInDb.setUsername(user.getUsername());
-            userInDb.setPassword(user.getPassword());
-            userService.saveEntry(userInDb);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        userInDb.setUsername(user.getUsername());
+        userInDb.setPassword(user.getPassword());
+        userService.saveEntry(userInDb);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
