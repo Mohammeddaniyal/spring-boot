@@ -26,10 +26,7 @@ public class UserService {
         user.setRoles(Arrays.asList("User"));
         userRepository.save(user);
     }
-    public List<User> getAll()
-    {
-        return userRepository.findAll();
-    }
+ 
     public Optional<User> findById(ObjectId id)
     {
         return userRepository.findById(id);
