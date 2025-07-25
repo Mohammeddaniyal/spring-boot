@@ -18,11 +18,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
-
     @PutMapping
     public ResponseEntity<?> updateUser(@RequestBody User user)
     {
+
     // to understand this two lines, lec 20 43:00 around
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
